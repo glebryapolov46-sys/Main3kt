@@ -1,0 +1,21 @@
+fun main() {
+    print("Введите слова через пробел: ")
+    val input = readLine() ?: return
+    val words = input.split(" ").filter { it.isNotBlank() }
+
+    val groups = mutableMapOf<String, MutableList<String>>()
+
+    for (word in words) {
+        // Сортируем буквы в слове — это будет ключ для группировки
+        val sortedKey = word.lowercase().toCharArray().sorted().joinToString("")
+        if (!groups.containsKey(sortedKey)) {
+            groups[sortedKey] = mutableListOf()
+        }
+        groups[sortedKey]?.add(word)
+    }
+
+    // Выводим каждую группу
+    for (group in groups.values) {
+        println(group.joinToString(", "))
+    }
+}
