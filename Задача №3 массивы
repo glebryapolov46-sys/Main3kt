@@ -1,0 +1,27 @@
+fun main() {
+    val alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ"
+    val order = intArrayOf(21, 13, 4, 20, 22, 1, 25, 12, 24, 14, 2, 28, 9, 23, 3, 29, 6, 16, 15, 11, 26, 5, 30, 27, 8, 18, 10, 33, 31, 32, 19, 7, 17)
+
+    print("Введите сообщение: ")
+    val message = readLine()!!.uppercase()
+
+    print("Введите ключевое слово: ")
+    val key = readLine()!!.uppercase()
+
+    val result = StringBuilder()
+
+    for ((i, char) in message.withIndex()) {
+        if (!alphabet.contains(char)) {
+            result.append(char) // если не буква — добавляем как есть
+            continue
+        }
+
+        val keyChar = key[i % key.length] // символ ключа (циклично)
+        val shift = order[alphabet.indexOf(keyChar)] - 1 // сдвиг (нумерация с 1, индексы с 0)
+        val originalIndex = alphabet.indexOf(char)
+        val newIndex = (originalIndex + shift) % 33 // закольцованное смещение
+        result.append(alphabet[newIndex])
+    }
+
+    println("Зашифрованное сообщение: $result")
+}
