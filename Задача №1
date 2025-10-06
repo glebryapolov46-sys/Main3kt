@@ -1,0 +1,20 @@
+import java.util.*
+
+fun main() {
+    val scanner = Scanner(System.`in`)
+    print("Введите строки и столбцы: ")
+    val (rows, cols) = List(2) { scanner.nextInt() }
+    val matrix = Array(rows) { IntArray(cols) }
+
+    println("Введите числа (трехзначные):")
+    for (i in 0 until rows) for (j in 0 until cols) matrix[i][j] = scanner.nextInt()
+
+    val digits = mutableSetOf<Int>()
+    for (row in matrix) for (num in row) {
+        var n = num
+        while (n > 0) { digits.add(n % 10); n /= 10 }
+    }
+
+    for (row in matrix) { println(row.joinToString("   ")) }
+    println("В массиве использовано ${digits.size} различных цифр")
+}
